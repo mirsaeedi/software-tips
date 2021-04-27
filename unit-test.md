@@ -41,3 +41,44 @@ network, file system, and database, might bring non-determinism to your tests, b
 * Unit-tests are here to give us confidence in refactoring and modifying code. But not well-designed tests do quite the opposite, because each change to the code breaks lots of tests, and it makes developers to not be interested in improving the code. To reduce the coupling between tests and code, we need to make sure tests are not depenendent on implementation details of the code. Excess use of mocks and `mock.Verify` [couples](https://enterprisecraftsmanship.com/posts/most-important-tdd-rule/) tests to implementation details and impedes us from refactoring the code with confidence. Maintainable tests check whether the output is correct for specific input and it does not care about how the method under test is implemented.
 
 * [Test doubles are only for extenal dependencies](https://enterprisecraftsmanship.com/posts/tdd-best-practices/). We should not mock dependencies if they are part of our code and do not communicate with the external world. Therefore, we should pass the actual dependencies to excersice all our code and the communication between components. Using mocks instead of actual classes prevents us from finding possible bugs that happen during interaction of components. Also, using mocks couples tests with implementation details which  makes tests fragile, as we need to change the test every time method signature changes.
+
+* Only integration tests can give us confidence that the application we develop actually works as a whole. They are also a good substitute for mocks in the cases where you can’t test important business logic without involving external dependencies.
+
+* With integration tests, check only a single happy path per application service method. Also, if there are any edge cases which cannot be covered with unit tests, check them as well.
+
+* It takes place when you introduce additional code to your main code base in order to enable unit testing. Don’t introduce production code that doesn’t run in production. don’t expose state getters solely for satisfying a test. In the above example, the status field is not observable from the outside world and thus doesn’t belong to the class’s public API.
+
+* such tests are not able to distinguish a bug from a legit refactoring. Structural Inspection is sometimes claimed to be able to prove the code base’s correctness. In reality, though, it sets your code in stone. The only thing it proves is that the SUT is implemented in one particular way. And that way may or may not be correct, you will need to introduce additional tests to verify that anyway. Tests that employ the Structural Inspection technique couple to the SUT’s implementation details and thus are fragile.
+
+* Overall, try to constantly ask yourself a question: does this test verify some business requirement? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your code base is ought to address.
+
+* The most valuable tests are tests that verify the observable behavior as it seems to appear from the end user’s perspective. The closer you can get to this kind of verification, the better.
+
+* There is an opinion that unit testing leads to a better design. I personally don’t think that unit testing in and of itself leads to anything. It’s true that your unit test suite can become a good litmus test which tells you there’s something wrong with the code base. If the code is hard to unit test, then it probably requires improvement. However, the sole existence of a unit test suite doesn’t provide any guarantees. I’ve seen many code bases which were a mess despite a good test coverage. Unit tests in and of themselves don’t lead to a better design.
+
+* the single most important benefit of unit testing is confidence.
+*  what is a valuable unit test? It is a test which:
+
+Has a high chance of catching a regression bug.
+
+Has a low chance of producing a false positive. A false positive is a situation where your test suite raises a false alarm: indicates an error, whereas, in the reality, everything works fine.
+
+Provides fast feedback.
+
+* We just need to shift our focus from hows of the SUT to its whats and verify the end result instead.
+
+* The test pyramid is a way of thinking about how different kinds of automated tests should be used to create a balanced portfolio. Its essential point is that you should have many more low-level UnitTests than high level BroadStackTests running through a GUI.
+
+
+* Even with good practices on writing them, end-to-end tests are more prone to non-determinism problems, which can undermine trust in them. In short, tests that run end-to-end through the UI are: brittle, expensive to write, and time consuming to run. So the pyramid argues that you should do much more automated testing through unit tests than you should through traditional GUI based testing.
+* I always argue that high-level tests are there as a second line of test defense. If you get a failure in a high level test, not just do you have a bug in your functional code, you also have a missing or incorrect unit test.
+
+* Test coverage is a useful tool for finding untested parts of a codebase. Test coverage is of little use as a numeric statement of how good your tests are.
+* If you make a certain level of coverage a target, people will try to attain it. The trouble is that high coverage numbers are too easy to reach with low quality testing.
+* Like most aspects of programming, testing requires thoughtfulness.
+* The reason, of course, why people focus on coverage numbers is because they want to know if they are testing enough. Certainly low coverage numbers, say below half, are a sign of trouble. But high numbers don't necessarily mean much, and lead to ignorance-promoting dashboards. 
+*  One sign you are testing too much is if your tests are slowing you down. If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests. This may not be so much that you are testing too many things, but that you have duplication in your tests.
+*  An object mother is a kind of class used in testing to help create example objects that you use for testing.
+*  Many in our industry claim that any unit tests are better than none, but I disagree: a test suite can be a great asset, or it can be a great burden that contributes little. It depends on the quality of those tests, which seems to be determined by how well its developers have understood the goals and principles of unit testing. 
+*  Avoid non-descriptive unit tests names such as Purchase() or OutOfStock(). Maintenance is hard if you don’t know what you’re trying to maintain.+
+*  Name your unit tests clearly and consistently 
