@@ -2,27 +2,27 @@
 
 ## Goal of unit testing
 
-* The single most important benefit of unit testing is to be able to sleep tight in night ;)
+* The single most important benefit of unit testing is to be able to sleep tight at night ;)
 
-* Another advange of unit testing is gaining confidence in refactoring and modifying the code. Though, only well-written and thoughtful tests are capable of catching bugs introduced by code modification.
+* Another advantage of unit testing is gaining confidence in refactoring and modifying the code. Though, only well-written and thoughtful tests are capable of catching bugs introduced by code modification.
 
-* The goal of unit-testing is not 100% coverage. 
+* The goal of unit testing is not 100% coverage. 
 
 ## Less known facts
 
 * It’s overwhelmingly easy to write bad unit tests that add very little value to a project while increasing the cost of code changes substantially.
 
-* Writing unit tests does not necessarily lead to confidence. You can acheive high code coverage without having thoughtful tests or getting egde cases covered. The sole existence of a unit test suite doesn’t provide any guarantees.
+* Writing unit tests does not necessarily lead to confidence. You can achieve high code coverage without having thoughtful tests or getting edge cases covered. The sole existence of a unit test suite doesn’t provide any guarantees.
 
-* Writing unit tests does not necessarily lead to a better design of production code. You can acheive high code coverage and still have a mess. However, if the code is hard to unit test, then it probably requires improvement. The sole existence of a unit test suite doesn’t provide any guarantees.
+* Writing unit tests does not necessarily lead to a better design of production code. You can achieve high code coverage and still have a mess. However, if the code is hard to unit test, then it probably requires improvement. The sole existence of a unit test suite doesn’t provide any guarantees.
 
-* Unit tests does not necessarily speed up the development process. Tests that are coupled to implementation details are fragile. So, A small change in production code could break several tests. Developers become reluctant to improve the production code as they also need to put a lot of time to fix the broken tests.
+* Unit tests do not necessarily speed up the development process. Tests that are coupled to implementation details are fragile. So, a slight change in production code could break several tests. Developers become reluctant to improve the production code as they also need to put a lot of time into fixing the broken tests.
 
 ## What to test
 
-* Writing and maintaining unit-tests is expensive. Hence, we should be careful where we invest our time and how we can have best return of investment. [Steven Sanderson](http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/) and [Khorikov](https://enterprisecraftsmanship.com/posts/painless-tdd/) advise us to only unit-test domain logic and business-critical parts of the code. Trival code or a code that directly communicates with external dependencies, e.g., network or database, does not need to be unit-tested. 
+* Writing and maintaining unit-tests is expensive. Hence, we should be careful where we invest our time and how we can have the best return of investment. [Steven Sanderson](http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/) and [Khorikov](https://enterprisecraftsmanship.com/posts/painless-tdd/) advise us to only unit-test domain logic and business-critical parts of the code. Trivial code or a code that directly communicates with external dependencies, e.g., network or database, does not need to be unit-tested. 
 
-* Invest your time in writing tests for business requirements. The most valuable tests are tests that verify the observable behavior as it seems to appear from the end user’s perspective. The rest is implementation detail and is subject to change. The closer you can get to this kind of verification, the better. Overall, try to constantly ask yourself a question: does this test verify some business requirement? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your code base is ought to address.
+* Invest your time in writing tests for business requirements. The most valuable tests verify the observable behavior as it seems to appear from the end user’s perspective. The rest is implementation detail and is subject to change. The closer you can get to this kind of verification, the better. Overall, try to constantly ask yourself a question: does this test verify some business requirements? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your codebase is ought to address.
 
 * The unit under test is not a method or a class. The unit of test is a business requirement that can expand across multiple classes and methods.
 
