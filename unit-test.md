@@ -1,19 +1,19 @@
 # Unit test
 
-* Art: Wrting good unit tests requires a different skill-set compared to regular coding.
+* Wrting good unit tests requires a different skill-set compared to regular coding.
 
-* Fast: Unit tests should be fast to get the feedback as quick as possible, otherwise developers lose their interest in executing tests regularly. 
+* Unit tests should be **fast** to enable us get feedback as quick as possible, otherwise developers lose their interest in executing tests regularly. 
 
-* All tests should be run randomly in parallel without a specific order. It allows to shorten the execution time of the test suit and get feedback quickly. Isolation, side-effect
+* All tests should be run **randomly** in parallel without a specific order. It allows to shorten the execution time of the test suit and get feedback quickly. Isolation, side-effect
 
-* **AAA**: A unit test usually has three phases that are known as Arrange, Act and Assert, or simply AAA. In tests, seperate each section using a comment line.
+* A unit test has three phases that are known as **Arrange**, **Act**, and **Assert**, or simply **AAA**. In tests, seperate each section using a comment line.
 
 * [**Constrained Non-Determinism**](https://blog.ploeh.dk/2009/03/05/ConstrainedNon-Determinism/): Try not to hard-code dummy values in tests. Instead, we can use well-defined, but random, input, because when input is random, 
 we do not accidentally hard-code any assumptions. For example, for generating random strings, we can use `Guid.NewGuid().ToString()`.
 
-
-* Few things are more non-deterministic than a call to the system clock. Each time you call it, you get a new result, and any tests that depend on it can thus change. Ask for all the todos due in the next hour, and you regularly get a different answe. Avoid using `DateTime.Now` or any other static method for getting time, because static methods are not mockable and time will chnage between test runs, and it might result in 
-different non-deterministic behaviors. Instead, redesign your code, to get `DataTime` or `IDateTimeService` as a parameter. I'd argue for finding a way to use code analysis to detect any direct calls to the system clock and failing the build right there.
+* Few things are more non-deterministic than a call to the system clock. Each time you call it, you get a new result, and any tests that depend on it can thus change. Ask for all the todos due in the next hour, and you regularly get a different answe. Therefore, avoid using `DateTime.Now` or any other static method for getting time, because static methods are not mockable and time changes between test runs, and it might result in 
+non-deterministic behaviors. Instead, [redesign your code[(https://martinfowler.com/bliki/ClockWrapper.html
+), to get `DataTime` or `IDateTimeService` as a parameter. 
 
 * Static is evil. Using static methods of other classes in your code, makes your code non-testable, e.g., `DateTime.Now`, `Guid.NewGuid()`, `Directory.Exists(string path)`, 
 `Environment.GetEnvironmentVariable("PATH")`, or a static singleton instance of a custom class.
