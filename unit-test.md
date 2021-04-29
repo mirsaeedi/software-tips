@@ -55,9 +55,9 @@
 
 * Test coverage is of little use as a numeric statement of how good your tests are. It is not but a useful tool for finding untested parts of a codebase. 
 
-* High coverage numbers are too easy to reach with low quality testing. Make a certain level of coverage a target, people will attain it. But it guarantees nothing.
+* High coverage numbers are too easy to reach with low quality testing. Make a certain level of coverage a target,people will attain it. But it guarantees nothing.
 
-* Certainly low coverage numbers, say below half, are a sign of trouble. But high numbers don't necessarily mean much. 
+* Certainly, low coverage numbers, say below half, are a sign of trouble. But high numbers don't necessarily mean much. 
 
 ## Non Determinism
 
