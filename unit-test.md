@@ -8,7 +8,7 @@
 
 * The goal of unit testing is not 100% coverage. 
 
-## Less known facts
+## Lesser-known facts
 
 * It’s overwhelmingly easy to write bad unit tests that add very little value to a project while increasing the cost of code changes substantially.
 
