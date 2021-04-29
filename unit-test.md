@@ -113,9 +113,4 @@ we do not accidentally hard-code any assumptions. For example, for generating ra
 * The test pyramid is a way of thinking about how different kinds of automated tests should be used to create a balanced portfolio. Its essential point is that you should have many more low-level UnitTests than high level BroadStackTests running through a GUI.
 
 *  One sign you are testing too much is if your tests are slowing you down. If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests. This may not be so much that you are testing too many things, but that you have duplication in your tests.
-*  
-*  
-
-*  Avoid non-descriptive unit tests names such as Purchase() or OutOfStock(). Maintenance is hard if you don’t know what you’re trying to maintain.+
-*  Name your unit tests clearly and consistently 
-So the pyramid argues that you should do much more automated testing through unit tests than you should through traditional GUI based testing.
+*  So the pyramid argues that you should do much more automated testing through unit tests than you should through traditional GUI based testing.
