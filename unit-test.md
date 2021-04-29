@@ -42,9 +42,9 @@
 
 * A unit test has three phases that are known as **Arrange**, **Act**, and **Assert**, or simply **AAA**. In tests, seperate each section using a comment line.
 
-* A unit test is valuable if it has the three following properties:  
+* A unit test is [valuable](https://enterprisecraftsmanship.com/posts/unit-test-value-proposition/) if it has the three following properties:  
   * Has a high chance of catching a regression bug. Not all unit tests are capable of catching bugs. Some of them are just written to satisfy management by increasing the coverage.
-  * Has a low chance of producing a false positive. A false positive is a situation where your test suite raises a false alarm: indicates an error, whereas, in the reality, everything works fine. It happens when tests are coupled with implentation details, e.g. excess use of mocks.
+  * Has a low chance of producing a false positive. A false positive is a situation where your test suite raises a false alarm: indicates an error, whereas, in the reality, everything works fine. It happens when tests are non-deterministic or are coupled with implentation details, e.g. excess use of mocks.
   * Provides fast feedback.
 
 ## Code Coverage
