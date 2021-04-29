@@ -2,25 +2,31 @@
 
 ## Goal of unit testing
 
-* The single most important benefit of unit testing is having confidence in refactoring and modifying the code. Hopefully, well-written tests catch bugs introduced by code modification.
+* The single most important benefit of unit testing is gaining confidence in refactoring and modifying the code. Though, only well-written and thoughtful tests are capable of catching bugs introduced by code modification.
 
 * The goal of unit-testing is not 100% coverage. 
 
-## Myths
+## Less known facts
 
-* Writing unit tests does not necessarily lead to a better design of production code. You can acheive high code coverage and still have a mess. On the other hand, if the code is hard to unit test, then it probably requires improvement. The sole existence of a unit test suite doesn’t provide any guarantees.
+* It’s overwhelmingly easy to write bad unit tests that add very little value to a project while increasing the cost of code changes substantially.
 
 * Writing unit tests does not necessarily lead to confidence. You can acheive high code coverage without having thoughtful tests or getting egde cases covered. The sole existence of a unit test suite doesn’t provide any guarantees.
 
+* Writing unit tests does not necessarily lead to a better design of production code. You can acheive high code coverage and still have a mess. However, if the code is hard to unit test, then it probably requires improvement. The sole existence of a unit test suite doesn’t provide any guarantees.
+
+* Unit tests does not necessarily speed up the development process. Tests that are coupled to implementation details are fragile. So, A small change in production code could break several tests. Developers become reluctant to improve the production code as they also need to put a lot of time to fix the broken tests.
+
 ## What to test
 
-* Writing and maintaining unit-tests is expensive. Hence, we should be careful where we invest our time and how we can have best return of investment. Khorikov [advises](https://enterprisecraftsmanship.com/posts/painless-tdd/) us to only unit-test domain logic and business-critical parts of the code. Trival code or a code that directly communicates with external dependencies, e.g., network or database, does not need to be unit-tested. 
+* Writing and maintaining unit-tests is expensive. Hence, we should be careful where we invest our time and how we can have best return of investment. [Steven Sanderson](http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/) and [Khorikov](https://enterprisecraftsmanship.com/posts/painless-tdd/) advise us to only unit-test domain logic and business-critical parts of the code. Trival code or a code that directly communicates with external dependencies, e.g., network or database, does not need to be unit-tested. 
 
-* Maintainable tests do not care how the method under test is implemented. They just validate the output for a given input. Hence, using mocks should be avoided as much as possible, as excess use of mocks indicates tests are coupled to the implementation details of the method under test.
+* Invest your time in writing tests for business requirements. The most valuable tests are tests that verify the observable behavior as it seems to appear from the end user’s perspective. The rest is implementation detail and is subject to change. The closer you can get to this kind of verification, the better. Overall, try to constantly ask yourself a question: does this test verify some business requirement? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your code base is ought to address.
+
+* The unit under test is not a method or a class. The unit of test is a business requirement that can expand across multiple classes and methods.
 
 * In writing unit tests, we just need to shift our focus from hows of the SUT to its whats and verify the end result instead.
 
-* Invest your time in writing tests for business requirements. The most valuable tests are tests that verify the observable behavior as it seems to appear from the end user’s perspective. The rest is implementation detail and is subject to change. The closer you can get to this kind of verification, the better. Overall, try to constantly ask yourself a question: does this test verify some business requirement? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your code base is ought to address.
+* Maintainable tests do not care how the method under test is implemented. They just validate the output for a given input. Hence, using mocks should be avoided as much as possible, as excess use of mocks indicates tests are coupled to the implementation details of the method under test.
 
 ## Good tests
 
@@ -28,9 +34,9 @@
 
 * Unit tests should be **fast** to enable us get feedback as quick as possible, otherwise developers lose their interest in executing tests regularly. 
 
-* Unit tests should be **deterministic**. Running a test should have the same outcome with a given input. Code that works with time or external resources is not deterministic.
+* Unit tests should be **deterministic**. In other words, running a test should always lead to the same outcome with a given input. Code that works with time or external resources is not deterministic.
 
-* All tests should be run **randomly** in parallel without a specific order. It allows to shorten the execution time of the test suit and get feedback quickly. Isolation, side-effect
+* All tests should be run **randomly** in parallel without a specific order. It allows to shorten the execution time of the test suit and get feedback quickly. It implies that tests should be isolated from each other and have no side-effect.
 
 * I find it really important to focus on keeping tests **isolated**. Properly isolated tests can be run in any sequence.
 
@@ -43,13 +49,13 @@
 
 ## Code Coverage
 
-*  Many in our industry claim that any unit tests are better than none, but I disagree: a test suite can be a great asset, or it can be a great burden that contributes little. It depends on the quality of those tests, which seems to be determined by how well its developers have understood the goals and principles of unit testing. 
+*  Many in our industry claim that any unit tests are better than none, but Steven Sanderson [disagrees](http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/): a test suite can be a great asset, or it can be a great burden that contributes little. It depends on the quality of those tests, which seems to be determined by how well its developers have understood the goals and principles of unit testing. 
 
 * Test coverage is of little use as a numeric statement of how good your tests are. It is not but a useful tool for finding untested parts of a codebase. 
 
-* High coverage numbers are too easy to reach with low quality testing. Make a certain level of coverage a target, people will attain it. But it gaurantees nothing.
+* High coverage numbers are too easy to reach with low quality testing. Make a certain level of coverage a target, people will attain it. But it guarantees nothing.
 
-* Certainly low coverage numbers, say below half, are a sign of trouble. But high numbers don't necessarily mean much, and lead to ignorance-promoting dashboards. 
+* Certainly low coverage numbers, say below half, are a sign of trouble. But high numbers don't necessarily mean much. 
 
 ## Non Determinism
 
@@ -58,8 +64,8 @@
 * The root cuase of non-determinism is twofold, side effects and using external resources. For example, if a test modifies a shared resource, e.g., file, database, or variable, that is used by another test, we might observe a different behavior each time we run the test suit as the test execution is concurrent and randomly ordered. Besides that, using external resources, such as time, 
 network, file system, and database, might bring non-determinism to your tests, because consuming these resources might fail for a variety of reasons, e.g., timeout, permission error, or disk failure.
 
-* Few things are more non-deterministic than a call to the system clock. Each time you call it, you get a new result, and any tests that depend on it can thus change. Ask for all the todos due in the next hour, and you regularly get a different answe. Therefore, avoid using `DateTime.Now` or any other static method for getting time, because static methods are not mockable and time changes between test runs, and it might result in 
-non-deterministic behaviors. Instead, [redesign your code](https://martinfowler.com/bliki/ClockWrapper.html
+* Few things are more non-deterministic than a call to the system clock. Each time you call it, you get a new result, and any tests that depend on it can thus change. Therefore, avoid using `DateTime.Now` or any other static method for getting time, because static methods are not mockable and time changes between test runs, and it might result in 
+non-deterministic behavior. Instead, [redesign your code](https://martinfowler.com/bliki/ClockWrapper.html
 ), to get `DataTime` or `IDateTimeService` as a parameter. 
 
 * Static is evil. When communicating with out-of-process resouces by using static methods, e.g. `DateTime.Now`, `Guid.NewGuid()`, `Directory.Exists(string path)`, 
@@ -99,7 +105,9 @@ non-deterministic behaviors. Instead, [redesign your code](https://martinfowler.
 * [**Constrained Non-Determinism**](https://blog.ploeh.dk/2009/03/05/ConstrainedNon-Determinism/): Try not to hard-code dummy values in tests. Instead, we can use well-defined, but random, input, because when input is random, 
 we do not accidentally hard-code any assumptions. For example, for generating random strings, we can use `Guid.NewGuid().ToString()`.
 
-*  An object mother is a kind of class used in testing to help create example objects that you use for testing.
+* An object mother is a kind of class used in testing to help create example objects that you use for testing.
+
+* Name your unit tests clearly and consistently. Two popular naming patterns are **What When Should** or **Given When Then**.
 
 
 * The test pyramid is a way of thinking about how different kinds of automated tests should be used to create a balanced portfolio. Its essential point is that you should have many more low-level UnitTests than high level BroadStackTests running through a GUI.
