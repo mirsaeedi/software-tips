@@ -71,21 +71,30 @@ non-deterministic behavior. Instead, [redesign your code](https://martinfowler.c
 * Static is evil. When communicating with out-of-process resouces by using static methods, e.g. `DateTime.Now`, `Guid.NewGuid()`, `Directory.Exists(string path)`, 
 `Environment.GetEnvironmentVariable("PATH")`, or a static singleton instance of a custom class, your code would become non-testable, because you cannot mock static methods.
 
-## Quality & Coupling to Production Code
+## Test Quality & Coupling to Production Code
 
 * David Hansson introduced the concept of **test-induced design damage** introduced in a [series of discussion](http://martinfowler.com/articles/is-tdd-dead/) with Martin Fowler and Kent Beck. It basically says that damaging your code is inevitable when you make it testable. In other words, testablity introduces a degree of complexity to your code. For example, you must avoid using static methods of other classes in your code or you must pass all dependencies explicitly through the constructor/method parameters.
+
+* Dependencies can be divided into two categories: stable and volatile. Volatile dependencies are dependencies that work with the outside world, for example, with the database  or an external HTTP service. Stable dependencies, on the other hand, are self-contained and don’t interact with any resources outside the process in which the SUT is executed.
+You need to change the way you work with stable dependencies as well. Never substitute them in tests and try to always use real objects. Mocking stable dependencies just doesn’t make any sense because both the mock and the original object have predictable behavior which doesn’t change because of external factors.
 
 * Unit-tests are here to give us confidence in refactoring and modifying code. But not well-designed tests do quite the opposite, because each change to the code breaks lots of tests, and it makes developers to not be interested in improving the code. To reduce the coupling between tests and code, we need to make sure tests are not depenendent on implementation details of the code. **Excess use of mocks** and **`mock.Verify`** [couples](https://enterprisecraftsmanship.com/posts/most-important-tdd-rule/) tests to implementation details and impedes us from refactoring the code with confidence. 
 
 * One of the pillars of having testable code is to pass dependencies through parameters. However, on the other hand, passing dependencies through parameters make your tests fragile, because each change to the constructor/method signature breaks all associated tests. It's a [pain in the neck](https://enterprisecraftsmanship.com/posts/test-induced-design-damage-or-why-tdd-is-so-painful/) and makes your test solution less maintainable.
 
-* [Test doubles are only for extenal dependencies](https://enterprisecraftsmanship.com/posts/tdd-best-practices/). We should not mock dependencies if they are part of our code and do not communicate with the external world. Therefore, we should pass the actual dependencies to excersice all our code and the communication between components. Using mocks instead of actual classes prevents us from finding possible bugs that happen during interaction of components. Also, using mocks couples tests with implementation details which  makes tests fragile, as we need to change the test every time method signature changes.
+* [Test doubles are only for extenal dependencies](https://enterprisecraftsmanship.com/posts/tdd-best-practices/). We should not mock dependencies if they are part of our code and do not communicate with the external world. Therefore, we should pass the actual dependencies to exercise all our code and the communication between components. Using mocks instead of actual classes prevents us from finding possible bugs that happen during interaction of components. Also, using mocks couples tests with implementation details which  makes tests fragile, as we need to change the test every time method signature changes.
 
 * Unit tests with long list of arrangements and mocks are less maintainable, because a change to the method signature of the SUT or any of the depenencies breaks tests.
 
 * Use `new` with caution in your code. It makes your code coupled to a specific concrete type, as a result, you cannot mock that dependency if it's required for testing. Consider injecting the dependency through parameters to make the class testable and more readable as its dependencies would become explicit.
 
 * Do not introduce additional code to your main code base in order to enable unit testing. Don’t introduce production code that doesn’t run in production. For example, don’t expose state getters solely for satisfying a test. If something is not going to be observable from the outside world, it should not be observable to tests, because it is implementation details.
+
+* If you use mocks, you most likely couple your unit tests to the SUT’s implementation details. There are a few legitimate use cases for mocks. They can be useful when you want to substitute a volatile dependency you don’t control. Also, mocks as an instrument also can be quite beneficial if you use them to create stubs.
+
+* Excess use of mocks defeats the whole purpose of unit testing: having a solid test suite which you can trust and rely upon, because mocks couple tests to the SUT's implementation details, and, as a result, changes in production code could easily break tests which leads to false positives, tests that are broken because of code change.
+
+* Your code should either depend on the outside world, or represent business logic, but never both
 
 ## Integration Tests
 
@@ -115,3 +124,23 @@ we do not accidentally hard-code any assumptions. For example, for generating ra
 *  One sign you are testing too much is if your tests are slowing you down. If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests. This may not be so much that you are testing too many things, but that you have duplication in your tests.
 
 *  So the pyramid argues that you should do much more automated testing through unit tests than you should through traditional GUI based testing.
+
+
+## Must Reads
+
+1. [Styles of unit testing](https://enterprisecraftsmanship.com/posts/styles-of-unit-testing)
+2. [Test-induced design damage](https://dhh.dk/2014/test-induced-design-damage.html)
+3. [Unit tests value proposition](https://enterprisecraftsmanship.com/posts/unit-test-value-proposition/)
+4. [Pragmatic unit testing](https://enterprisecraftsmanship.com/posts/pragmatic-unit-testing/)
+5. [Writing Great Unit Tests: Best and Worst Practices](http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/)
+6. [Selective Unit Testing – Costs and Benefits](http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/)
+7. [Test Coverage](https://martinfowler.com/bliki/TestCoverage.html)
+8. [Eradicating Non-Determinism in Tests](https://martinfowler.com/articles/nonDeterminism.html)
+9. [Test Pyramid](https://martinfowler.com/bliki/TestPyramid.html)
+10.[Mocks Aren't Stubs](https://martinfowler.com/articles/mocksArentStubs.html)
+11.[When to Mock](https://enterprisecraftsmanship.com/posts/when-to-mock/)
+12.[Unit Testing Dependencies: The Complete Guide] https://enterprisecraftsmanship.com/posts/unit-testing-dependencies
+13.
+
+## Must Watch
+1. [Ian Cooper - TDD, Where Did It All Go Wrong](https://www.youtube.com/watch?v=EZ05e7EMOLM)
