@@ -143,7 +143,6 @@ we do not accidentally hard-code any assumptions. For example, for generating ra
 10.[Mocks Aren't Stubs](https://martinfowler.com/articles/mocksArentStubs.html)
 11.[When to Mock](https://enterprisecraftsmanship.com/posts/when-to-mock/)
 12.[Unit Testing Dependencies: The Complete Guide] https://enterprisecraftsmanship.com/posts/unit-testing-dependencies
-13.
 
 ## Must Watch
 1. [Ian Cooper - TDD, Where Did It All Go Wrong](https://www.youtube.com/watch?v=EZ05e7EMOLM)
