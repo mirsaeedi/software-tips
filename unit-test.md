@@ -114,7 +114,7 @@ non-deterministic behavior. Instead, [redesign your code](https://martinfowler.c
 * [**Constrained Non-Determinism**](https://blog.ploeh.dk/2009/03/05/ConstrainedNon-Determinism/): Try not to hard-code dummy values in tests. Instead, we can use well-defined, but random, input, because when input is random, 
 we do not accidentally hard-code any assumptions. For example, for generating random strings, we can use `Guid.NewGuid().ToString()`.
 
-* An object mother is a kind of class used in testing to help create example objects that you use for testing.
+* An [object mother](https://www.martinfowler.com/bliki/ObjectMother.html) is a kind of class used in testing to help create example objects that you use for testing.
 
 * Name your unit tests clearly and consistently. Two popular naming patterns are **What When Should** or **Given When Then**.
 
