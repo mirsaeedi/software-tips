@@ -99,7 +99,6 @@ non-deterministic behavior. Instead, [redesign your code](https://martinfowler.c
   * Tests that run end-to-end through the UI are: brittle, expensive to write, and time consuming to run. 
   * End to End tests are there as a second line of test defense. If you get a failure in a high level test, not just do you have a bug in your functional code, you might also have a missing or incorrect unit test.
 
-
 ## Patterns
 
 * [**Constrained Non-Determinism**](https://blog.ploeh.dk/2009/03/05/ConstrainedNon-Determinism/): Try not to hard-code dummy values in tests. Instead, we can use well-defined, but random, input, because when input is random, 
@@ -109,8 +108,10 @@ we do not accidentally hard-code any assumptions. For example, for generating ra
 
 * Name your unit tests clearly and consistently. Two popular naming patterns are **What When Should** or **Given When Then**.
 
+## Test pyramid
 
-* The test pyramid is a way of thinking about how different kinds of automated tests should be used to create a balanced portfolio. Its essential point is that you should have many more low-level UnitTests than high level BroadStackTests running through a GUI.
+* The [test pyramid](https://martinfowler.com/bliki/TestPyramid.html) is a way of thinking about how different kinds of automated tests should be used to create a balanced portfolio. Its essential point is that you should have many more low-level unit tests than high level end to end running through a GUI.
 
 *  One sign you are testing too much is if your tests are slowing you down. If it seems like a simple change to code causes excessively long changes to tests, that's a sign that there's a problem with the tests. This may not be so much that you are testing too many things, but that you have duplication in your tests.
+
 *  So the pyramid argues that you should do much more automated testing through unit tests than you should through traditional GUI based testing.
