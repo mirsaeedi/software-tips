@@ -61,17 +61,17 @@
 
 ## Non Determinism
 
-* [Non-deterministic](https://martinfowler.com/articles/nonDeterminism.html) (flaky) tests, that sometimes pass and sometimes fail without any noticeable change in the code, tests, or environment, can completely destroy the value of an automated regression suite. Such tests fail, then you re-run them and they pass. Test failures for such tests are seemingly random. Quarantine them intially but fix them soon.
+* [Non-deterministic](https://martinfowler.com/articles/nonDeterminism.html) (flaky) tests, that sometimes pass and sometimes fail without any noticeable change in the code, tests, or environment, can completely destroy the value of an automated regression suite. Such tests fail, then you re-run them and they pass. Test failures for such tests are seemingly random. Quarantine them initially but fix them soon.
 
-* The root cuase of non-determinism is twofold, side effects and using external resources. For example, if a test modifies a shared resource, e.g., file, database, or variable, that is used by another test, we might observe a different behavior each time we run the test suit as the test execution is concurrent and randomly ordered. Besides that, using external resources, such as time, 
+* The root cause  of non-determinism is twofold, side effects and using external resources. For example, if a test modifies a shared resource, e.g., file, database, or variable, that is used by another test, we might observe a different behavior each time we run the test suit as the test execution is concurrent and randomly ordered. Besides that, using external resources, such as time, 
 network, file system, and database, might bring non-determinism to your tests, because consuming these resources might fail for a variety of reasons, e.g., timeout, permission error, or disk failure.
 
 * Few things are more non-deterministic than a call to the system clock. Each time you call it, you get a new result, and any tests that depend on it can thus change. Therefore, avoid using `DateTime.Now` or any other static method for getting time, because static methods are not mockable and time changes between test runs, and it might result in 
 non-deterministic behavior. Instead, [redesign your code](https://martinfowler.com/bliki/ClockWrapper.html
 ), to get `DataTime` or `IDateTimeService` as a parameter. 
 
-* Static is evil. When communicating with out-of-process resouces by using static methods, e.g. `DateTime.Now`, `Guid.NewGuid()`, `Directory.Exists(string path)`, 
-`Environment.GetEnvironmentVariable("PATH")`, or a static singleton instance of a custom class, your code would become non-testable, because you cannot mock static methods.
+* Static is evil. When communicating with out-of-process resources by using static methods, e.g. `DateTime.Now`, `Guid.NewGuid()`, `Directory.Exists(string path)`, 
+`Environment.GetEnvironmentVariable("PATH")`, or a static singleton instance of a custom class, your code would become non-testable because you cannot mock static methods.
 
 ## Test Quality & Coupling to Production Code
 
