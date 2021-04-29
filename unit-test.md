@@ -39,6 +39,12 @@ non-deterministic behaviors. Instead, [redesign your code](https://martinfowler.
 
 * The goal of unit-testing is not 100% coverage. The goal is to ensure future refactoring and code changes do not introduce unexpected bugs.
 
+* Writing unit tests does not necessarily lead to a better design of production code. You can acheive high code coverage and still have a mess. On the other hand, if the code is hard to unit test, then it probably requires improvement. The sole existence of a unit test suite doesn’t provide any guarantees.
+
+* Writing unit tests does not necessarily lead to confidence. You can acheive high code coverage without having meaningful tests or getting egde cases covered. The sole existence of a unit test suite doesn’t provide any guarantees.
+
+* the single most important benefit of unit testing is having confidence in refactoring and modifying the code. Hopefully, well-written tests catch bugs introduced by code modification.
+
 * Unit-tests are here to give us confidence in refactoring and modifying code. But not well-designed tests do quite the opposite, because each change to the code breaks lots of tests, and it makes developers to not be interested in improving the code. To reduce the coupling between tests and code, we need to make sure tests are not depenendent on implementation details of the code. **Excess use of mocks** and **`mock.Verify`** [couples](https://enterprisecraftsmanship.com/posts/most-important-tdd-rule/) tests to implementation details and impedes us from refactoring the code with confidence. 
 
 * Maintainable tests do not care how the method under test is implemented. They just validate the output for a given input. Hence, using mocks should be avoided as much as possible, as excess use of mocks indicates tests are coupled to the implementation details of the method under test.
@@ -51,22 +57,12 @@ non-deterministic behaviors. Instead, [redesign your code](https://martinfowler.
 
 * Do not introduce additional code to your main code base in order to enable unit testing. Don’t introduce production code that doesn’t run in production. For example, don’t expose state getters solely for satisfying a test. If something is not going to be observable from the outside world, it should not be observable to tests, because it is implementation details.
 
-* such tests are not able to distinguish a bug from a legit refactoring. Structural Inspection is sometimes claimed to be able to prove the code base’s correctness. In reality, though, it sets your code in stone. The only thing it proves is that the SUT is implemented in one particular way. And that way may or may not be correct, you will need to introduce additional tests to verify that anyway. Tests that employ the Structural Inspection technique couple to the SUT’s implementation details and thus are fragile.
+* Invest your time in writing tests for business requirements. The most valuable tests are tests that verify the observable behavior as it seems to appear from the end user’s perspective. The rest is implementation detail and is subject to change. The closer you can get to this kind of verification, the better. Overall, try to constantly ask yourself a question: does this test verify some business requirement? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your code base is ought to address.
 
-* Overall, try to constantly ask yourself a question: does this test verify some business requirement? If the answer is no, remove it. The most valuable tests are always the tests that have at least some connection to the business requirements your code base is ought to address.
-
-* The most valuable tests are tests that verify the observable behavior as it seems to appear from the end user’s perspective. The closer you can get to this kind of verification, the better.
-
-* There is an opinion that unit testing leads to a better design. I personally don’t think that unit testing in and of itself leads to anything. It’s true that your unit test suite can become a good litmus test which tells you there’s something wrong with the code base. If the code is hard to unit test, then it probably requires improvement. However, the sole existence of a unit test suite doesn’t provide any guarantees. I’ve seen many code bases which were a mess despite a good test coverage. Unit tests in and of themselves don’t lead to a better design.
-
-* the single most important benefit of unit testing is confidence.
-*  what is a valuable unit test? It is a test which:
-
-Has a high chance of catching a regression bug.
-
-Has a low chance of producing a false positive. A false positive is a situation where your test suite raises a false alarm: indicates an error, whereas, in the reality, everything works fine.
-
-Provides fast feedback.
+*  A unit test is valuable if
+  a) Has a high chance of catching a regression bug.
+  b) Has a low chance of producing a false positive. A false positive is a situation where your test suite raises a false alarm: indicates an error, whereas, in the reality, everything works fine.
+  c) Provides fast feedback.
 
 * We just need to shift our focus from hows of the SUT to its whats and verify the end result instead.
 
