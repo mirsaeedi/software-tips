@@ -2,7 +2,9 @@
 
 ## Goal of unit testing
 
-* The single most important benefit of unit testing is gaining confidence in refactoring and modifying the code. Though, only well-written and thoughtful tests are capable of catching bugs introduced by code modification.
+* The single most important benefit of unit testing is to be able to sleep tight in night ;)
+
+* Another advange of unit testing is gaining confidence in refactoring and modifying the code. Though, only well-written and thoughtful tests are capable of catching bugs introduced by code modification.
 
 * The goal of unit-testing is not 100% coverage. 
 
