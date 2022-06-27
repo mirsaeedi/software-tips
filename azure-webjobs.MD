@@ -180,3 +180,8 @@ public static void Run([BlobTrigger("samples-workitems/{name}"), [Blob("sample-c
             }
         }
 ```
+* Blob trigger uses polling to capture new events. Blobs are scanned in groups of 10,000 at a time with a continuation token used between intervals. Therefore, it's not recommended for large blob storages. The alternative is to use [`EventGrid`](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=in-process%2Cextensionv5&pivots=programming-language-csharp#event-grid-trigger). With few clicks, we can create an event subscription that automatically sends a message into queue when blobs are added/modified. It's piece of cake 🍰. 
+    *   You might need to enable the EventGrid namespace for your subscription.
+```Powershell
+az provider show -n Microsoft.EventGrid
+```
