@@ -157,3 +157,26 @@ public static void Run([BlobTrigger("samples-workitems/{name}"), [Blob("sample-c
 * You can filter on blob name. For example, `samples-workitems/images-{name}.png` triggers code for PNG files that their name start with `images`.
 * Azure Sdk [Samples](https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/storage/Microsoft.Azure.WebJobs.Extensions.Storage.Blobs#examples) worth a read.
 * I use BlobTrigger to only recieve update notifications. I don't process the file in the BlobTrigger functton. To process the file, I pushed the file name into queue. So, I can get the benefit of queue processing like load balancing, retry, and poison queue.
+```C#
+ public async Task ProcessQueueMessage(
+            [BlobTrigger("mycontainer/{blobName}")] Stream _,
+            string blobName,
+            [Queue("myQyeyeName")] ICollector<MessageQueueItem> collector)
+        {
+            logger.LogInformation("found a new blob : `{blobName}`", blobName);
+
+            try
+            {
+                // Add a message into queue to offload the processing to the queue listener.
+                collector.Add(new MessageQueueItem
+                {
+                    BlobName = blobName
+                });
+
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Failed to process the file `{blobName}`. Exception: {exception}", blobName, e.ToString());
+            }
+        }
+```
