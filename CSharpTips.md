@@ -35,6 +35,11 @@ static bool IsConferenceDay(DateTime date) => date is { Year: 2020, Month: 5, Da
 
 
 # C# Conding Conventions
+Coding conventions serve the following purposes:
+
+* They create a consistent look to the code, so that readers can focus on content, not layout.
+* They enable readers to understand the code more quickly by making assumptions based on previous experience.
+* They facilitate copying, changing, and maintaining the code.
 
 ## Links:
 
@@ -42,12 +47,6 @@ static bool IsConferenceDay(DateTime date) => date is { Year: 2020, Month: 5, Da
 * [.NET Runtime C# coding style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md)
 
 ## Gist
-
-Coding conventions serve the following purposes:
-
-* They create a consistent look to the code, so that readers can focus on content, not layout.
-* They enable readers to understand the code more quickly by making assumptions based on previous experience.
-* They facilitate copying, changing, and maintaining the code.
 
 * When writing positional records, use pascal casing for parameters as they're the public properties of the record.
 
