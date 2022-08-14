@@ -44,7 +44,8 @@ Coding conventions serve the following purposes:
 ## Links:
 
 * [C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
-* [.NET Runtime C# coding style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md)
+* [.NET Runtime C# Coding Style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md)
+* [ASP.NET C# Coding Guideline](https://github.com/dotnet/aspnetcore/wiki/Engineering-guidelines#coding-guidelines)
 
 ## Gist
 
@@ -91,5 +92,18 @@ if ((val1 > val2) && (val1 > val3))
 * Avoid spurious free spaces. For example avoid if (someVar == 0)..., where the dots mark the spurious free spaces. Consider enabling "View White Space (Ctrl+R, Ctrl+W)" or "Edit -> Advanced -> View White Space" if using Visual Studio to aid detection.
 * We use PascalCasing to name all our constant local variables and fields. 
 * Make all internal and private types static or sealed unless derivation from them is required. As with any implementation detail, they can be changed if/when derivation is required in the future.
-
-
+* Windows uses \ and OS X and Linux use / to separate directories. Instead of hard-coding either type of slash, use Path.Combine() or Path.DirectorySeparatorChar. If this is not possible (such as in scripting), use a forward slash. Windows is more forgiving than Linux in this regard.
+* By default all async methods must have the Async suffix.
+* Passing cancellation tokens is done with an optional parameter with a value of default(CancellationToken), which is equivalent to CancellationToken.None (one of the few places that we use optional parameters). 
+* The class name of an extension method container (also known as a "sponsor type") should generally follow the pattern of <Feature>Extensions, <Target><Feature>Extensions, or <Feature><Target>Extensions.
+* The contents of every unit test should be split into three distinct stages, optionally separated by these comments.
+ ```
+// Arrange  
+// Act  
+// Assert     
+ ```
+* Always specify an EventId. Include a numeric ID and a name. The name should be a PascalCasedCompoundWord (i.e. no spaces, and each "word" within the name starts with a capital letter).
+    * In production code, use "pre-compiled logging functions".
+    * Prefer defining pre-compiled messages in a static class named Log that is a nested class within the class you are logging from. Messages that are used by multiple components can be defined in a shared class (but this is discouraged).
+    * Consider separating the Log nested class into a separate file by using partial classes. Name the additional file [OriginalClassName].Log.cs.
+    
