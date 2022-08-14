@@ -49,6 +49,39 @@ Coding conventions serve the following purposes:
 
 ## Gist
 
+## General
+
+* Use parentheses to make clauses in an expression apparent, as shown in the following code.
+```C#
+if ((val1 > val2) && (val1 > val3))
+{
+    // Take appropriate action.
+}
+```
+
+* Use implicit typing for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
+* Use implicit typing to determine the type of the loop variable in for loops.
+* Don't use implicit typing to determine the type of the loop variable in foreach loops. In most cases, the type of elements in the collection isn't immediately obvious. The collection's name shouldn't be solely relied upon for inferring the type of its elements.
+* To avoid exceptions and increase performance by skipping unnecessary comparisons, use && instead of & and || instead of | when you perform comparisons
+* Public fields should be used sparingly and should use PascalCasing with no prefix when used.
+* We avoid this. unless absolutely necessary.
+* We always specify the visibility, even if it's the default (e.g. private string _foo not string _foo). Visibility should be the first modifier (e.g. public abstract not abstract public).
+* Avoid more than one empty line at any time. For example, do not have two blank lines between members of a type.
+* Avoid spurious free spaces. For example avoid if (someVar == 0)..., where the dots mark the spurious free spaces. Consider enabling "View White Space (Ctrl+R, Ctrl+W)" or "Edit -> Advanced -> View White Space" if using Visual Studio to aid detection.
+* Make all internal and private types static or sealed unless derivation from them is required. As with any implementation detail, they can be changed if/when derivation is required in the future.
+* Windows uses \ and OS X and Linux use / to separate directories. Instead of hard-coding either type of slash, use Path.Combine() or Path.DirectorySeparatorChar. If this is not possible (such as in scripting), use a forward slash. Windows is more forgiving than Linux in this regard.
+
+## Commenting
+* Place the comment on a separate line, not at the end of a line of code.
+* Begin comment text with an uppercase letter.
+* End comment text with a period.
+*  Insert one space between the comment delimiter (//) and the comment text, as shown in the following example.
+
+```C#
+// The following declaration creates a query. It does not run
+// the query.
+```    
+## Naming
 * When writing positional records, use pascal casing for parameters as they're the public properties of the record.
 
 ```C#
@@ -61,49 +94,25 @@ public record PhysicalAddress(
 
 * Use camel casing ("camelCasing") when naming private or internal fields, and prefix them with _.
 * When working with static fields that are private or internal, use the s_ prefix and for thread static use t_.
-* Use parentheses to make clauses in an expression apparent, as shown in the following code.
-```C#
-if ((val1 > val2) && (val1 > val3))
-{
-    // Take appropriate action.
-}
-```
-* Place the comment on a separate line, not at the end of a line of code.
-
-* Begin comment text with an uppercase letter.
-
-* End comment text with a period.
-
-*  Insert one space between the comment delimiter (//) and the comment text, as shown in the following example.
-
-```C#
-// The following declaration creates a query. It does not run
-// the query.
-```
-* Use implicit typing for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
-* Don't rely on the variable name to specify the type of the variable. It might not be correct.
-* Use implicit typing to determine the type of the loop variable in for loops.
-* Don't use implicit typing to determine the type of the loop variable in foreach loops. In most cases, the type of elements in the collection isn't immediately obvious. The collection's name shouldn't be solely relied upon for inferring the type of its elements.
-* To avoid exceptions and increase performance by skipping unnecessary comparisons, use && instead of & and || instead of | when you perform comparisons
-* Public fields should be used sparingly and should use PascalCasing with no prefix when used.
-* We avoid this. unless absolutely necessary.
-* We always specify the visibility, even if it's the default (e.g. private string _foo not string _foo). Visibility should be the first modifier (e.g. public abstract not abstract public).
-* Avoid more than one empty line at any time. For example, do not have two blank lines between members of a type.
-* Avoid spurious free spaces. For example avoid if (someVar == 0)..., where the dots mark the spurious free spaces. Consider enabling "View White Space (Ctrl+R, Ctrl+W)" or "Edit -> Advanced -> View White Space" if using Visual Studio to aid detection.
-* We use PascalCasing to name all our constant local variables and fields. 
-* Make all internal and private types static or sealed unless derivation from them is required. As with any implementation detail, they can be changed if/when derivation is required in the future.
-* Windows uses \ and OS X and Linux use / to separate directories. Instead of hard-coding either type of slash, use Path.Combine() or Path.DirectorySeparatorChar. If this is not possible (such as in scripting), use a forward slash. Windows is more forgiving than Linux in this regard.
-* By default all async methods must have the Async suffix.
-* Passing cancellation tokens is done with an optional parameter with a value of default(CancellationToken), which is equivalent to CancellationToken.None (one of the few places that we use optional parameters). 
 * The class name of an extension method container (also known as a "sponsor type") should generally follow the pattern of <Feature>Extensions, <Target><Feature>Extensions, or <Feature><Target>Extensions.
+* Don't rely on the variable name to specify the type of the variable. It might not be correct.
+* We use PascalCasing to name all our constant local variables and fields.
+    
+## Aync
+* By default all async methods must have the Async suffix.
+* Passing cancellation tokens is done with an optional parameter with a value of default(CancellationToken), which is equivalent to CancellationToken.None (one of the few places that we use optional parameters).
+        
+## Tests
+    
 * The contents of every unit test should be split into three distinct stages, optionally separated by these comments.
  ```
 // Arrange  
 // Act  
 // Assert     
  ```
-* Always specify an EventId. Include a numeric ID and a name. The name should be a PascalCasedCompoundWord (i.e. no spaces, and each "word" within the name starts with a capital letter).
-    * In production code, use "pre-compiled logging functions".
-    * Prefer defining pre-compiled messages in a static class named Log that is a nested class within the class you are logging from. Messages that are used by multiple components can be defined in a shared class (but this is discouraged).
-    * Consider separating the Log nested class into a separate file by using partial classes. Name the additional file [OriginalClassName].Log.cs.
+ ## Logging
     
+* Always specify an EventId. Include a numeric ID and a name. The name should be a PascalCasedCompoundWord (i.e. no spaces, and each "word" within the name starts with a capital letter).
+* In production code, use "pre-compiled logging functions".
+* Prefer defining pre-compiled messages in a static class named Log that is a nested class within the class you are logging from. Messages that are used by multiple components can be defined in a shared class (but this is discouraged).
+* Consider separating the Log nested class into a separate file by using partial classes. Name the additional file [OriginalClassName].Log.cs.
