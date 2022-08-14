@@ -32,3 +32,65 @@ static bool IsAcceptable(int id, int absLimit) =>
 ```C#
 static bool IsConferenceDay(DateTime date) => date is { Year: 2020, Month: 5, Day: 19 or 20 or 21 };
 ```
+
+
+# C# Conding Conventions
+
+## Links:
+
+* [C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+* [.NET Runtime C# coding style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md)
+
+## Gist
+
+Coding conventions serve the following purposes:
+
+* They create a consistent look to the code, so that readers can focus on content, not layout.
+* They enable readers to understand the code more quickly by making assumptions based on previous experience.
+* They facilitate copying, changing, and maintaining the code.
+
+* When writing positional records, use pascal casing for parameters as they're the public properties of the record.
+
+```C#
+public record PhysicalAddress(
+    string Street,
+    string City,
+    string StateOrProvince,
+    string ZipCode);
+```
+
+* Use camel casing ("camelCasing") when naming private or internal fields, and prefix them with _.
+* When working with static fields that are private or internal, use the s_ prefix and for thread static use t_.
+* Use parentheses to make clauses in an expression apparent, as shown in the following code.
+```C#
+if ((val1 > val2) && (val1 > val3))
+{
+    // Take appropriate action.
+}
+```
+* Place the comment on a separate line, not at the end of a line of code.
+
+* Begin comment text with an uppercase letter.
+
+* End comment text with a period.
+
+*  Insert one space between the comment delimiter (//) and the comment text, as shown in the following example.
+
+```C#
+// The following declaration creates a query. It does not run
+// the query.
+```
+* Use implicit typing for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
+* Don't rely on the variable name to specify the type of the variable. It might not be correct.
+* Use implicit typing to determine the type of the loop variable in for loops.
+* Don't use implicit typing to determine the type of the loop variable in foreach loops. In most cases, the type of elements in the collection isn't immediately obvious. The collection's name shouldn't be solely relied upon for inferring the type of its elements.
+* To avoid exceptions and increase performance by skipping unnecessary comparisons, use && instead of & and || instead of | when you perform comparisons
+* Public fields should be used sparingly and should use PascalCasing with no prefix when used.
+* We avoid this. unless absolutely necessary.
+* We always specify the visibility, even if it's the default (e.g. private string _foo not string _foo). Visibility should be the first modifier (e.g. public abstract not abstract public).
+* Avoid more than one empty line at any time. For example, do not have two blank lines between members of a type.
+* Avoid spurious free spaces. For example avoid if (someVar == 0)..., where the dots mark the spurious free spaces. Consider enabling "View White Space (Ctrl+R, Ctrl+W)" or "Edit -> Advanced -> View White Space" if using Visual Studio to aid detection.
+* We use PascalCasing to name all our constant local variables and fields. 
+* Make all internal and private types static or sealed unless derivation from them is required. As with any implementation detail, they can be changed if/when derivation is required in the future.
+
+
