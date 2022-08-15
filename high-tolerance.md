@@ -1,9 +1,10 @@
 # High Tolerance and Resiliency
+The AWS Well-Architected Framework defines resilience as “the capability to recover when stressed by load (more requests for service), attacks (either accidental through a bug, or deliberate through intention), and failure of any component in the workload’s components.”
 
 ## Links
 [Amazon: Minimizing correlated failures in distributed systems](https://aws.amazon.com/builders-library/minimizing-correlated-failures-in-distributed-systems/?did=ba_card&trk=ba_card)
-[Amazon: Timeouts, retries, and backoff with jitter]([https://aws.amazon.com/builders-library/minimizing-correlated-failures-in-distributed-systems/?did=ba_card&trk=ba_card](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/))
-
+TODO: [Amazon: Timeouts, retries, and backoff with jitter]([https://aws.amazon.com/builders-library/minimizing-correlated-failures-in-distributed-systems/?did=ba_card&trk=ba_card](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/))
+* TODO: [AWS Developer Webinar Series: Five design patterns to build more resilient applications](https://www.youtube.com/watch?v=CDX7oQkuf3A)
 ## Infrastructure and Hardware
 
 * To achieve fault tolerance, a typical Amazon service at that time ran on multiple physical servers behind a load balancer that distributed incoming requests among those servers.
@@ -24,4 +25,4 @@
 
 
 ## Retries
-TODO: Amazon: Timeouts, retries, and backoff with jitter
+
