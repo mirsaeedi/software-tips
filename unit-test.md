@@ -18,6 +18,8 @@
 
 * Unit tests do not necessarily speed up the development process. Tests that are coupled to implementation details are fragile. So, a slight change in production code could break several tests. Developers become reluctant to improve the production code as they also need to put a lot of time into fixing the broken tests.
 
+* Forcing developers to reach a certain code coverage makes developers to write meaningless tests to just meet the policy by increasing the coverage. Eventually, the test suit quality deteriorates. Additionally, it will dampen development speed because each change may break lots of tests. 
+
 ## What to test
 
 * Writing and maintaining unit-tests is expensive. Hence, we should be careful where we invest our time and how we can have the best return of investment. [Steven Sanderson](http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/) and [Khorikov](https://enterprisecraftsmanship.com/posts/painless-tdd/) advise us to only unit-test domain logic and business-critical parts of the code. Trivial code or a code that directly communicates with external dependencies, e.g., network or database, does not need to be unit-tested. 
