@@ -20,6 +20,11 @@
 
 * Forcing developers to reach a certain code coverage makes developers to write meaningless tests to just meet the policy by increasing the coverage. Eventually, the test suit quality deteriorates. Additionally, it will dampen development speed because each change may break lots of tests. 
 
+## What is a unit?
+
+* There's no single [definition of `unit`](https://www.martinfowler.com/bliki/UnitTest.html). Some consider it to be a method or a class (Soliraty approach), and some take a bunch of closely related classes as a unit (Sociable approach).
+* Sociable approach believes that tests should verify a _unit of behavior_ not a _unit of implementation_.
+
 ## What to test
 
 * Writing and maintaining unit-tests is expensive. Hence, we should be careful where we invest our time and how we can have the best return of investment. [Steven Sanderson](http://blog.stevensanderson.com/2009/11/04/selective-unit-testing-costs-and-benefits/) and [Khorikov](https://enterprisecraftsmanship.com/posts/painless-tdd/) advise us to only unit-test domain logic and business-critical parts of the code. Trivial code or a code that directly communicates with external dependencies, e.g., network or database, does not need to be unit-tested. 
