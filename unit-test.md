@@ -99,6 +99,32 @@ non-deterministic behavior. Instead, [redesign your code](https://martinfowler.c
 
 * Your code should either depend on the outside world, or represent business logic, but never both.
 
+## Testable code
+
+* Having a testable code is a prerequisite for writing unit tests; otherwise the code cannot be unit tested effectively.
+* Kent Beck believes [desirable unit tests](https://tidyfirst.substack.com/p/desirable-unit-tests) are fast and deterministic. To achieve this goal, we must mock out-of-process dependencies to eliminate slowness and non-determinism. Out-of-process dependencies are:
+  * Network calls and remote services
+  * Database
+  * File System
+  * Loggers
+  * Operating System
+  * Time 
+  * etc
+
+* Can you mock out-of-process dependencies in your code? To be able to mock dependencies, we should adhere to [Explicit Dependencies Principle](https://principles.dev/p/explicit-dependencies-principle/) to pass all dependencies via the dependent's constructor.
+  * Instantiating dependencies in a constructor is a code smell because it won't allow tests to mock the dependency.
+
+* Don’t use `HttpClient`, `DateTime`, and `Random` directly. You should always use a wrapper over these classes to make them mockable; otherwise you'll get a different result each time the test runs because of the non-deterministic nature of `HttpClient`, `DateTime`, `Random`. That's why in dotnet core, a new interface is introduced for time called `ISystemClock`.
+
+* Don’t use static classes and methods unless it’s justified. `Static` cannot be mocked.
+  * Environment.GetEnvironmentVariable("PATH");
+  * Directory.Exists(string path);
+  * DateTime.Now;
+
+* Don’t hardcode configurations. Use [Options pattern](https://docs.microsoft.com/en-us/dotnet/core/extensions/options) to inject configurations to the class. This pattern allows you to override configurations in tests.
+
+## What to mock
+
 ## Integration Tests
 
 * In integration tests, we might need to make calls to database. One trick that helps to keep tests's side-effects isolated, is to conduct your tests inside a transaction, and then to rollback the transaction at the end of the test. That way the transaction manager cleans up for you, reducing the chance of errors.
