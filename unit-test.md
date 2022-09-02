@@ -178,6 +178,7 @@ we do not accidentally hard-code any assumptions. For example, for generating ra
 12. [Unit Testing Dependencies: The Complete Guide](https://enterprisecraftsmanship.com/posts/unit-testing-dependencies)
 13. [Just Say No to More End-to-End Tests](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html)
 14. [Integration tests](https://martinfowler.com/bliki/IntegrationTest.html)
+15. [Unit test: infographic](https://khorikov.org/files/infographic.pdf)
 
 ## Must Watch
 1. [Ian Cooper - TDD, Where Did It All Go Wrong](https://www.youtube.com/watch?v=EZ05e7EMOLM)
